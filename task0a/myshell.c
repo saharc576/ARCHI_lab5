@@ -3,15 +3,16 @@
 #include <stdio.h>
 #include "LineParser.h"
 #include <string.h>
+#include <stdlib.h>
 
 #define INPUT_MAX_SIZE 48
-
+#define EXECUTION_FAILED 1
 
 void execute(cmdLine *pCmdLine) {
     int returnVal;
-    if ((returnVal = execv(pCmdLine->inputRedirect, pCmdLine->arguments)) < 0 ) {
+    if ((returnVal = execv(pCmdLine->arguments[0], pCmdLine->arguments)) < 0 ) {
         perror("couln't execute");
-        exit(1);
+        exit(EXECUTION_FAILED);
     }
 }
 
@@ -32,7 +33,7 @@ int main (int argc, char **agrv) {
         fgets(input, INPUT_MAX_SIZE,stdin);
         sscanf(input, "%s", input);
 
-        if(strncmp(input, "q", 1) == 0) {
+        if(strncmp(input, "quit", 4) == 0) {
             freeCmdLines(cmdL);
             break;
         }
