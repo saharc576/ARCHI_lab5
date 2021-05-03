@@ -5,8 +5,9 @@
 
 void handler (int sigNum) {
 	char *name = strsignal(sigNum);
-	write(STDOUT_FILENO, "\nsignal name is ",17);
+	write(STDOUT_FILENO, "\nLooper handling ",18);
 	write(STDOUT_FILENO, name, strlen(name));
+	write(STDOUT_FILENO, "\n", 2);
 	signal(sigNum, SIG_DFL);
 	raise(sigNum);
 
@@ -29,6 +30,5 @@ int main(int argc, char **argv){
 	while(1) {
 		sleep(2);
 	}
-
 	return 0;
 }
